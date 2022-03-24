@@ -1,13 +1,12 @@
-# pylint: disable=no-name-in-module,import-error,unused-variable,missing-class-docstring
+# pylint: disable=missing-class-docstring
 import os
 import sys
 import subprocess
 import pkg_resources
 import shutil
-import platform
 import glob
 
-from setuptools import setup, find_packages, Command
+from setuptools import setup, Command
 from setuptools.command.build_ext import build_ext as st_build_ext
 from setuptools.errors import LibError
 
@@ -86,49 +85,5 @@ cmdclass = {
     'clean_native': clean_native,
 }
 
-_UNICORN = "unicorn==1.0.2rc4"
 
-setup(
-    name='angr',
-    version='9.2.0.dev0',
-    python_requires='>=3.6',
-    description='A multi-architecture binary analysis toolkit, with the ability to perform dynamic symbolic execution and various static analyses on binaries',
-    url='https://github.com/angr/angr',
-    packages=find_packages(),
-    install_requires=[
-        'sortedcontainers',
-        'cachetools',
-        'capstone>=3.0.5rc2',
-        'dpkt',
-        'mulpyplexer',
-        'networkx>=2.0',
-        'progressbar2>=3',
-        'rpyc',
-        'cffi>=1.14.0',
-        _UNICORN,
-        'archinfo==9.2.0.dev0',
-        'claripy==9.2.0.dev0',
-        'cle==9.2.0.dev0',
-        'pyvex==9.2.0.dev0',
-        'ailment==9.2.0.dev0',
-        'GitPython',
-        'psutil',
-        'pycparser>=2.18',
-        'itanium_demangler',
-        'CppHeaderParser',
-        'protobuf>=3.12.0',
-        'nampa',
-        'sympy',
-    ],
-    setup_requires=[_UNICORN, 'pyvex'],
-    extras_require={
-        'AngrDB': ['sqlalchemy'],
-        'pcode': ['pypcode==1.0.2'],
-        ':sys_platform == "win32"': ['colorama'],
-    },
-    cmdclass=cmdclass,
-    include_package_data=True,
-    package_data={
-        'angr': ['lib/*', "py.typed"]
-    }
-)
+setup(cmdclass=cmdclass)
